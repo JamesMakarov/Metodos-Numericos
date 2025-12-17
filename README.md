@@ -1,99 +1,54 @@
-a estrutura de pastas inicial é essa:
-ondas\_sismicas/
+# Métodos Numéricos — Tema 2  
+## Resolução de Sistemas Lineares e Cálculo da Inversa
 
-│
+Este projeto tem como objetivo implementar e comparar métodos numéricos para a **resolução de sistemas lineares** da forma:
 
-├── bin/
+\[
+A x = b
+\]
 
-│   └── ondas\_sismicas           # Executável final
+bem como o **cálculo da matriz inversa**, utilizando tanto um método **exato** quanto métodos **iterativos**, conforme solicitado no **Tema 2 da disciplina de Métodos Numéricos**.
 
-│
+---
 
-├── src/
+## 🎯 Objetivos do Projeto
 
-│   ├── main.cpp                 # Função principal
+- Implementar métodos iterativos clássicos:
+  - **Jacobi**
+  - **Gauss-Seidel**
+- Resolver sistemas lineares sem o uso de bibliotecas externas de álgebra linear
+- Implementar o cálculo da **inversa exata** de uma matriz
+- Implementar o cálculo da **inversa por métodos iterativos**
+- Comparar resultados e validar a corretude numérica
+- Trabalhar com organização modular e código estruturado
 
-│   │
+---
 
-│   ├── matrix/
+## 🧠 Fundamentação Teórica
 
-│   │   ├── matrix.h             # Estrutura da matriz e protótipos
+### 1. Métodos Iterativos
 
-│   │   └── matrix.cpp           # Operações com matriz (alocação, impressão, etc.)
+Os métodos de **Jacobi** e **Gauss-Seidel** são métodos iterativos utilizados para resolver sistemas lineares quando a matriz dos coeficientes satisfaz determinadas condições (ex.: diagonal dominante).
 
-│   │
+Ambos os métodos são implementados **diretamente a partir das equações escalares**, sem o uso explícito de operações matriciais como soma ou subtração de matrizes.
 
-│   ├── inverse/
+---
 
-│   │   ├── inverse.h            # Protótipos do cálculo da inversa
+### 2. Cálculo da Inversa
 
-│   │   └── inverse.cpp          # Cálculo da matriz inversa coluna a coluna
+O projeto contempla três abordagens:
 
-│   │
+- **Inversa Exata**  
+  Calculada por métodos diretos (ex.: eliminação de Gauss-Jordan).
 
-│   ├── methods/
+- **Inversa por Jacobi**  
+  Cada coluna da inversa é obtida resolvendo um sistema:
+  \[
+  A x = e_i
+  \]
+  onde \( e_i \) é o vetor da base canônica.
 
-│   │   ├── jacobi.h             # Método de Gauss-Jacobi
+- **Inversa por Gauss-Seidel**  
+  Abordagem análoga à do Jacobi, utilizando o método de Gauss-Seidel.
 
-│   │   ├── jacobi.cpp
-
-│   │   ├── seidel.h             # Método de Gauss-Seidel
-
-│   │   └── seidel.cpp
-
-│   │
-
-│   ├── system/
-
-│   │   ├── system\_solver.h      # Resolver d = A⁻¹ b
-
-│   │   └── system\_solver.cpp
-
-│   │
-
-│   └── utils/
-
-│       ├── input.h              # Leitura de A e b
-
-│       ├── input.cpp
-
-│       ├── output.h             # Impressão de resultados e alertas
-
-│       └── output.cpp
-
-│
-
-├── data/
-
-│   ├── caso\_padrao.txt          # Matriz A e vetor b fornecidos pelo professor
-
-│   ├── caso\_1.txt               # Variações de A e b
-
-│   ├── caso\_2.txt
-
-│   └── caso\_3.txt
-
-│
-
-├── include/
-
-│   └── config.h                 # Constantes (tolerância, limite 0.4 cm, iterações)
-
-│
-
-├── docs/
-
-│   ├── apresentacao.pdf         # Slides
-
-│   └── relatorio.pdf            # (Opcional) documentação escrita
-
-│
-
-├── Makefile                     # Compilação do projeto
-
-│
-
-└── README.md                    # Instruções de execução
-
-
-
+---
