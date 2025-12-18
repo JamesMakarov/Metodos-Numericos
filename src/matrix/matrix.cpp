@@ -35,7 +35,7 @@ int lowerTriangularization(vector<vector<double>> * matrix) {
     int signal = 1;
     
     for (int i = 0; i < size; i++) {
-        if (abs((*matrix)[i][i]) < 1e-9) { 
+        if (abs((*matrix)[i][i]) < 1e-8) { 
             weNeedToInverteSomeLine(matrix, i, &signal);
             if (abs((*matrix)[i][i]) < 1e-9) return 0;
         }
@@ -45,6 +45,26 @@ int lowerTriangularization(vector<vector<double>> * matrix) {
             for (int k = 0; k < size; k++) {
                 (*matrix)[j][k] = mul_const*(*matrix)[i][k]+(*matrix)[j][k];
             }
+        }
+    }
+    return signal;
+}
+
+int upperTriangulazation(vector<vector<double>> *matrix) {
+    int size = matrix->size();
+    int signal = 1;
+    for (int i = size - 1; i > 0; i--) {
+        if (abs((*matrix)[i][i]) < 1e-9) { 
+            weNeedToInverteSomeLine(matrix, i, &signal);
+            if (abs((*matrix)[i][i]) < 1e-9) return 0;
+        }
+        double pivot = (*matrix)[i][i];
+        for (int j = i - 1; j >= 0; j--) {
+            double mul_const = (*matrix)[j][i] / pivot;
+            for (int k = 0; k <= i; k++) {
+                 (*matrix)[j][k] = (*matrix)[j][k] - (mul_const * (*matrix)[i][k]);
+            }
+            (*matrix)[j][i] = 0.0;
         }
     }
     return signal;
@@ -92,7 +112,6 @@ vector<vector<double>> transposeMatrix(vector<vector<double>> matrix) {
             result[j][i] = matrix[i][j];
         }
     }
-
     return result;
 }
 
@@ -104,7 +123,7 @@ bool productDefined(int colunaM1, int linhaM2) {
 
 vector<vector<double>> matrixMultiplier(vector<vector<double>> m1, vector<vector<double>> m2, int size) {
 
-    if (m1.empty() || m2.empty() ||!productDefined(m1[0].size(), m2.size())) return {};
+    if (m1.empty() || m2.empty() || !productDefined(m1[0].size(), m2.size())) return {};
 
     vector<vector<double>> result = zerosMatrix(m1.size(), m2[0].size());
 
