@@ -1,4 +1,4 @@
-#include "jacobi.h"
+#include "inverse_jacobi.h"
 
 using namespace std;
 

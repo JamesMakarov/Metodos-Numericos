@@ -1,5 +1,4 @@
-#include "matrix.h"
-
+#include "matrix.h" // Se der erro, troque por "matrix/matrix.h" dependendo do include path
 #include <iostream>
 #include <vector>
 #include <cmath>
@@ -16,22 +15,18 @@ vector<vector<double>> identityVector(int size) {
 }
 
 double determinant(vector<vector<double>> matrix, int size) { 
-
     int signal = lowerTriangularization(&matrix);
-
     double det = signal;
 
     for (int i = 0; i < size; i++) det *= matrix[i][i];
 
-    if (det == 0) cout << "A matriz inserida não tem inversa, pois seu determinante é igual a zero";
+    if (det == 0) cout << "A matriz inserida não tem inversa, pois seu determinante é igual a zero" << endl;
     
     return det;
 }
 
 int lowerTriangularization(vector<vector<double>> * matrix) {
-
     int size = matrix->size();
-
     int signal = 1;
     
     for (int i = 0; i < size; i++) {
@@ -82,9 +77,10 @@ void weNeedToInverteSomeLine(vector<vector<double>> * matrix, int i, int * signa
 }
 
 bool isSquared(vector<vector<double>> * matrix, int size) { 
+    // CORREÇÃO: Cast para size_t para evitar warning
     for (int i = 0; i < size; i++) {
         if ((*matrix)[i].size() != static_cast<size_t>(size)) { 
-            cout << "Sua matriz não é quadrada";
+            cout << "Sua matriz não é quadrada" << endl;
             return false;
         }
     }
@@ -100,15 +96,17 @@ vector<vector<double>> zerosMatrix(int linha, int coluna) {
 }
 
 vector<vector<double>> transposeMatrix(vector<vector<double>> matrix) {
-
-    if (!matrix.empty()) 
-        cout << "A matrix para a função de transposição é vazia!";
+    // CORREÇÃO: Lógica do IF e chaves adicionadas
+    if (matrix.empty()) {
+        cout << "A matrix para a função de transposição é vazia!" << endl;
         return {};
+    }
 
     vector<vector<double>> result = zerosMatrix(matrix[0].size(), matrix.size());
 
-    for (int i = 0; i < matrix.size(); i++) {
-        for (int j = 0; j < matrix[0].size(); j++) {
+    // CORREÇÃO: size_t nos loops
+    for (size_t i = 0; i < matrix.size(); i++) {
+        for (size_t j = 0; j < matrix[0].size(); j++) {
             result[j][i] = matrix[i][j];
         }
     }
@@ -129,10 +127,12 @@ vector<vector<double>> matrixMultiplier(vector<vector<double>> m1, vector<vector
 
     vector<vector<double>> m2T = transposeMatrix(m2);
 
-    for (int i = 0; i < m1.size(); i++) {
-        for (int j = 0; j < m2[0].size(); j++) {
+    // CORREÇÃO: size_t nos loops
+    for (size_t i = 0; i < m1.size(); i++) {
+        for (size_t j = 0; j < m2[0].size(); j++) {
             double sum = 0;
-            for (int k = 0; k < m1[0].size(); k++) {
+            // CORREÇÃO: size_t aqui também
+            for (size_t k = 0; k < m1[0].size(); k++) {
                 sum += m1[i][k] * m2T[j][k];
             }
             result[i][j] = sum;

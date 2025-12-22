@@ -1,4 +1,4 @@
-#include "utils/output.h"
+#include "output.h"
 #include <iomanip>
 #include <sstream>
 #include <iostream>
