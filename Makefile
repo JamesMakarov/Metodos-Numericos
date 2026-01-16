@@ -1,42 +1,56 @@
-# 1. Configurações do Compilador
 CXX = g++
+CXXFLAGS = -Isrc -Wall -std=c++11
 
-CXXFLAGS = -Wall -Iinclude -Isrc
+ifeq ($(OS),Windows_NT)
+    MKDIR = if not exist bin mkdir bin
+    RM = del /Q /F
+    RM_DIR = del /S /Q
+    TARGET = bin/main.exe
+    FIXPATH = $(subst /,\,$1)
+    EXT = .exe
+else
+    MKDIR = mkdir -p bin
+    RM = rm -f
+    RM_DIR = rm -rf
+    TARGET = bin/main
+    FIXPATH = $1
+    EXT = 
+endif
 
-# 2. Arquivo Final
-TARGET = bin/main.exe
+SRCS = src/main.cpp \
+       src/methods/jacobi.cpp \
+       src/methods/seidel.cpp \
+       src/inverse/inverse_jacobi.cpp \
+       src/inverse/inverse_seidel.cpp \
+       src/matrix/matrix.cpp \
+       src/utils/output.cpp \
+       src/utils/input.cpp
 
-# 3. Encontrando os Arquivos Automaticamente 
-SRCS = $(wildcard src/*.cpp) \
-       $(wildcard src/inverse/*.cpp) \
-       $(wildcard src/matrix/*.cpp) \
-       $(wildcard src/methods/*.cpp) \
-       $(wildcard src/system/*.cpp) \
-       $(wildcard src/utils/*.cpp)
 
-# 4. Transformando a lista de .cpp em lista de .o
 OBJS = $(SRCS:.cpp=.o)
 
-# 5. Regra Principal (O que roda quando digita 'make')
-all: folder $(TARGET)
+all: directories $(TARGET)
 
-# Cria a pasta bin se ela não existir (para evitar erro no Windows)
-folder:
-	if not exist bin mkdir bin
+directories:
+	$(MKDIR)
 
-# 6. Linkagem (Junta todos os .o para criar o .exe na pasta bin)
 $(TARGET): $(OBJS)
-	$(CXX) $(OBJS) -o $(TARGET)
+	$(CXX) $(CXXFLAGS) -o $(call FIXPATH,$(TARGET)) $(call FIXPATH,$(OBJS))
 
-# 7. Regra Genérica de Compilação
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# 8. Rodar o main que está em bin
-run:
-	.\bin\main.exe
+run: all
+ifeq ($(OS),Windows_NT)
+	$(call FIXPATH,$(TARGET))
+else
+	./$(TARGET)
+endif
 
-# 9. Limpeza (Windows)
 clean:
-	del /Q bin\main.exe
-	del /S /Q src\*.o
+	-$(RM) $(call FIXPATH,$(TARGET))
+	-$(RM) $(call FIXPATH,src/*.o)
+	-$(RM) $(call FIXPATH,src/methods/*.o)
+	-$(RM) $(call FIXPATH,src/inverse/*.o)
+	-$(RM) $(call FIXPATH,src/matrix/*.o)
+	-$(RM) $(call FIXPATH,src/utils/*.o)

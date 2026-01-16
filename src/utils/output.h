@@ -7,5 +7,6 @@ using namespace std;
 void printMatrix(const vector<vector<double>>& matrix);
 void printVector(const vector<double>& vec);
 void analyzeSeismicRisk(const vector<double>& d);
+void printComparativeTable(const vector<double>& d_jacobi, const vector<double>& d_seidel);
 
 #endif

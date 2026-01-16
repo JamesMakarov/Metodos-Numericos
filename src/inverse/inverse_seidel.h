@@ -3,6 +3,7 @@
 
 #include <vector>
 
-// Arquivo stub para Seidel — declarações serão adicionadas quando necessário
+using namespace std;
+vector<vector<double>> inverseSeidel(const vector<vector<double>>& A, double tol);
 
 #endif // INVERSE_SEIDEL_H
