@@ -11,7 +11,7 @@ bem como o **cálculo da matriz inversa**, utilizando tanto um método **exato**
 
 ---
 
-## 🎯 Objetivos do Projeto
+## Objetivos do Projeto
 
 - Implementar métodos iterativos clássicos:
   - **Jacobi**
@@ -24,7 +24,7 @@ bem como o **cálculo da matriz inversa**, utilizando tanto um método **exato**
 
 ---
 
-## 🧠 Fundamentação Teórica
+## Fundamentação Teórica
 
 ### 1. Métodos Iterativos
 
