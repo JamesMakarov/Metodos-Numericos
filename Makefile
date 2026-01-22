@@ -2,7 +2,7 @@ CXX = g++
 CXXFLAGS = -Isrc -Wall -std=c++11
 
 ifeq ($(OS),Windows_NT)
-    MKDIR = if not exist bin mkdir bin
+    MKDIR = powershell -Command "if (-not (Test-Path 'bin')) { New-Item -ItemType Directory -Path 'bin' | Out-Null }"
     RM = del /Q /F
     RM_DIR = del /S /Q
     TARGET = bin/main.exe
