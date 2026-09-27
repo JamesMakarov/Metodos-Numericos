@@ -1,54 +1,107 @@
-# Métodos Numéricos — Tema 2  
-## Resolução de Sistemas Lineares e Cálculo da Inversa
+# Numerical Methods — Linear Systems in C++
 
-Este projeto tem como objetivo implementar e comparar métodos numéricos para a **resolução de sistemas lineares** da forma:
+C++ application for solving a linear-system problem using **Gauss-Jacobi** and **Gauss-Seidel** iterative methods and comparing the resulting displacement vectors.
 
-\[
-A x = b
-\]
+The program is presented in the context of seismic-wave analysis: a system (A d = b) is solved to estimate displacements and evaluate the resulting values.
 
-bem como o **cálculo da matriz inversa**, utilizando tanto um método **exato** quanto métodos **iterativos**, conforme solicitado no **Tema 2 da disciplina de Métodos Numéricos**.
+## Implemented methods
 
----
+- Gauss-Jacobi;
+- Gauss-Seidel;
+- iterative computation of matrix inverses;
+- matrix-vector multiplication;
+- configurable convergence tolerance;
+- comparison between both iterative approaches;
+- input of custom systems;
+- predefined example data.
 
-## Objetivos do Projeto
+## Structure
 
-- Implementar métodos iterativos clássicos:
-  - **Jacobi**
-  - **Gauss-Seidel**
-- Resolver sistemas lineares sem o uso de bibliotecas externas de álgebra linear
-- Implementar o cálculo da **inversa exata** de uma matriz
-- Implementar o cálculo da **inversa por métodos iterativos**
-- Comparar resultados e validar a corretude numérica
-- Trabalhar com organização modular e código estruturado
+```text
+.
+├── src/
+│   ├── inverse/
+│   ├── matrix/
+│   ├── methods/
+│   ├── utils/
+│   └── main.cpp
+├── include/
+├── docs/
+└── Makefile
+```
 
----
+### `src/methods/`
 
-## Fundamentação Teórica
+Contains the iterative solvers for Jacobi and Gauss-Seidel.
 
-### 1. Métodos Iterativos
+### `src/inverse/`
 
-Os métodos de **Jacobi** e **Gauss-Seidel** são métodos iterativos utilizados para resolver sistemas lineares quando a matriz dos coeficientes satisfaz determinadas condições (ex.: diagonal dominante).
+Builds an inverse matrix by solving systems whose right-hand sides are the canonical basis vectors.
 
-Ambos os métodos são implementados **diretamente a partir das equações escalares**, sem o uso explícito de operações matriciais como soma ou subtração de matrizes.
+### `src/matrix/`
 
----
+Contains the matrix operations used by the numerical routines.
 
-### 2. Cálculo da Inversa
+### `src/utils/`
 
-O projeto contempla três abordagens:
+Input and output helpers, including formatted results and comparison output.
 
-- **Inversa Exata**  
-  Calculada por métodos diretos (ex.: eliminação de Gauss-Jordan).
+## Building
 
-- **Inversa por Jacobi**  
-  Cada coluna da inversa é obtida resolvendo um sistema:
-  \[
-  A x = e_i
-  \]
-  onde \( e_i \) é o vetor da base canônica.
+### Requirements
 
-- **Inversa por Gauss-Seidel**  
-  Abordagem análoga à do Jacobi, utilizando o método de Gauss-Seidel.
+- GCC/G++ with C++11 support;
+- Make.
 
----
+Compile:
+
+```bash
+make
+```
+
+Run:
+
+```bash
+make run
+```
+
+Remove generated files:
+
+```bash
+make clean
+```
+
+The Makefile supports both Windows and Unix-like systems.
+
+## Program modes
+
+The command-line menu allows:
+
+1. Gauss-Jacobi with predefined data;
+2. Gauss-Seidel with predefined data;
+3. Gauss-Jacobi with custom data;
+4. Gauss-Seidel with custom data;
+5. comparison of both methods;
+6. exit.
+
+For custom input, the user provides the matrix, right-hand-side vector and convergence tolerance.
+
+## Numerical context
+
+For a system
+
+```text
+A d = b
+```
+
+the project computes an approximate inverse using the selected iterative method and then evaluates
+
+```text
+d = A⁻¹ b
+```
+
+The comparison mode runs both methods on the same input so their resulting displacement vectors can be inspected side by side.
+
+## Documentation
+
+Additional course material is available in `docs/`.
