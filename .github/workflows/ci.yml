@@ -1,4 +1,4 @@
-name: C++ build
+name: Numerical methods tests
 
 on:
   push:
