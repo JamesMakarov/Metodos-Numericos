@@ -1,5 +1,7 @@
 # Numerical Methods — Linear Systems in C++
 
+[![C++ build and tests](https://github.com/JamesMakarov/Metodos-Numericos/actions/workflows/ci.yml/badge.svg)](https://github.com/JamesMakarov/Metodos-Numericos/actions/workflows/ci.yml)
+
 C++ application for solving a linear-system problem using **Gauss-Jacobi** and **Gauss-Seidel** iterative methods and comparing the resulting displacement vectors.
 
 The program is presented in the context of seismic-wave analysis: a system (A d = b) is solved to estimate displacements and evaluate the resulting values.
