@@ -31,6 +31,8 @@ OBJS = $(SRCS:.cpp=.o)
 
 all: directories $(TARGET)
 
+.PHONY: all directories run test clean
+
 directories:
 	$(MKDIR)
 
@@ -39,6 +41,10 @@ $(TARGET): $(OBJS)
 
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+test:
+	$(CXX) $(CXXFLAGS) tests/test_methods.cpp src/methods/jacobi.cpp src/methods/seidel.cpp -o $(call FIXPATH,bin/tests$(EXT))
+	$(call FIXPATH,bin/tests$(EXT))
 
 run: all
 ifeq ($(OS),Windows_NT)
@@ -49,6 +55,7 @@ endif
 
 clean:
 	-$(RM) $(call FIXPATH,$(TARGET))
+	-$(RM) $(call FIXPATH,bin/tests$(EXT))
 	-$(RM) $(call FIXPATH,src/*.o)
 	-$(RM) $(call FIXPATH,src/methods/*.o)
 	-$(RM) $(call FIXPATH,src/inverse/*.o)
